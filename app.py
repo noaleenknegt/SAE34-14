@@ -33,6 +33,15 @@ def show_client():
     clients = my_cursor.fetchall()
     return render_template('show_client.html', clients=clients)
 
+
+@app.route('/reduction', methods=['GET'])
+def show_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Reduction"""
+    my_cursor.execute(sql)
+    reductions = my_cursor.fetchall()
+    return render_template('show_reduction.html', reductions=reductions)
+
 @app.route('/', methods=['GET'])
 def show_layout():
     return render_template('layout.html')
