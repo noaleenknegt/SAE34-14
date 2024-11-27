@@ -10,7 +10,7 @@ import pymysql.cursors
 def get_db():
     if 'db' not in g:
         g.db =  pymysql.connect(
-            host="serveurmysql",
+            host="serveurmysql.iut-bm.univ-fcomte.fr",
             user="nleenkne",
             password="mdp",
             database="BDD_nleenkne_sae",
@@ -28,8 +28,10 @@ def teardown_db(exception):
 @app.route('/client', methods=['GET'])
 def show_client():
     my_cursor = get_db().cursor()
-    sql = """SELECT * FROM client"""
-    return render_template('client.html')
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    clients = my_cursor.fetchall()
+    return render_template('show_client.html', clients=clients)
 
 @app.route('/', methods=['GET'])
 def show_layout():
