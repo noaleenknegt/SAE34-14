@@ -1,6 +1,6 @@
 DROP TABLE IF EXISTS Reduction;
 DROP TABLE IF EXISTS Distance;
-DROP TABLE IF EXISTS Recupere;
+DROP TABLE IF EXISTS Collecte;
 DROP TABLE IF EXISTS Benne;
 DROP TABLE IF EXISTS Achete;
 DROP TABLE IF EXISTS Depose;
@@ -52,7 +52,7 @@ CREATE TABLE Depose(
    FOREIGN KEY(IdTypeVetement) REFERENCES TypeVetement(IdTypeVetement)
 );
 
-CREATE TABLE Recupere(
+CREATE TABLE Collecte(
    IdTypeVetement INT,
    IdBenne INT,
    JJ_MM_AAAA DATE,
@@ -124,7 +124,7 @@ INSERT INTO Depose (IdClient, IdTypeVetement, JJ_MM_AAAA, Quantite_Deposee) VALU
                                                                                 (3, 3, '2024-11-17', 8124);
 
 
-INSERT INTO Recupere (IdTypeVetement, IdBenne, JJ_MM_AAAA, Quantite_Collectee) VALUES
+INSERT INTO Collecte (IdTypeVetement, IdBenne, JJ_MM_AAAA, Quantite_Collectee) VALUES
                                                                                    (1, 1, '2024-11-15', 20126),
                                                                                    (1, 1, '2024-11-16', 13876),
                                                                                    (2, 1, '2024-11-15', 1964),
@@ -162,8 +162,8 @@ GROUP BY Client.Nom, Client.Prénom, TypeVetement.LibelleTypeVetement, Rang.Libe
 ORDER BY NomClient, PrenomClient, TypeVetement;
 
 SELECT Benne.Adresse AS AdresseBenne, TypeVetement.LibelleTypeVetement AS TypeVetement, SUM(Recupere.Quantite_Collectee) AS TotalCollectee
-FROM Recupere JOIN Benne ON Recupere.IdBenne = Benne.IdBenne
-    JOIN TypeVetement ON Recupere.IdTypeVetement = TypeVetement.IdTypeVetement
+FROM Collecte JOIN Benne ON Collecte.IdBenne = Benne.IdBenne = Benne.IdBenne
+    JOIN TypeVetement ON Collecte.IdTypeVetement = TypeVetement.IdTypeVetement
 GROUP BY Benne.Adresse, TypeVetement.LibelleTypeVetement
 ORDER BY AdresseBenne, TypeVetement;
 
