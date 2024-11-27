@@ -13,7 +13,7 @@ def get_db():
             host="serveurmysql",
             user="nleenkne",
             password="mdp",
-            database="BDD_nleenkne",
+            database="BDD_nleenkne_sae",
             charset='utf8mb4',
             cursorclass=pymysql.cursors.DictCursor
         )
@@ -27,6 +27,8 @@ def teardown_db(exception):
 
 @app.route('/client', methods=['GET'])
 def show_client():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM client"""
     return render_template('client.html')
 
 @app.route('/', methods=['GET'])
