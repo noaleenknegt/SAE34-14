@@ -38,6 +38,7 @@ def show_client():
 def delete_client():
     my_cursor = get_db().cursor()
     sql = """DELETE FROM Client WHERE IdClient=%s"""
+    print(request.args['id'])
     my_cursor.execute(sql, (request.args['id']))
     get_db().commit()
     return redirect("/client/show")
