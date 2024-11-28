@@ -34,6 +34,7 @@ def show_client():
     get_db().commit()
     return render_template('show_client.html', clients=clients)
 
+<<<<<<< HEAD
 @app.route('/client/delete', methods=['GET'])
 def delete_client():
     my_cursor = get_db().cursor()
@@ -41,6 +42,24 @@ def delete_client():
     my_cursor.execute(sql, (request.args['id']))
     get_db().commit()
     return redirect("/client/show")
+=======
+
+@app.route('/reduction', methods=['GET'])
+def show_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Reduction"""
+    my_cursor.execute(sql)
+    reductions = my_cursor.fetchall()
+    return render_template('show_reduction.html', reductions=reductions)
+
+@app.route('/collecte', methods=['GET'])
+def show_collecte():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Collecte"""
+    my_cursor.execute(sql)
+    collectes = my_cursor.fetchall()
+    return render_template('show_collecte.html', collectes=collectes)
+>>>>>>> e491b34ce2fc7582b9477e034b472ce561c854a9
 
 @app.route('/', methods=['GET'])
 def show_layout():
