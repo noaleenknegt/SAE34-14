@@ -25,13 +25,22 @@ def teardown_db(exception):
     if db is not None:
         db.close()
 
-@app.route('/client', methods=['GET'])
+@app.route('/client/show', methods=['GET'])
 def show_client():
     my_cursor = get_db().cursor()
     sql = """SELECT * FROM Client"""
     my_cursor.execute(sql)
     clients = my_cursor.fetchall()
+    get_db().commit()
     return render_template('show_client.html', clients=clients)
+
+@app.route('/client/delete', methods=['GET'])
+def delete_client():
+    my_cursor = get_db().cursor()
+    sql = """DELETE FROM Client WHERE IdClient=%s"""
+    my_cursor.execute(sql, (request.args['id']))
+    get_db().commit()
+    return redirect("/client/show")
 
 @app.route('/', methods=['GET'])
 def show_layout():
