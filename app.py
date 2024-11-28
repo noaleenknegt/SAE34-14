@@ -42,6 +42,14 @@ def show_reduction():
     reductions = my_cursor.fetchall()
     return render_template('show_reduction.html', reductions=reductions)
 
+@app.route('/collecte', methods=['GET'])
+def show_collecte():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Collecte"""
+    my_cursor.execute(sql)
+    collectes = my_cursor.fetchall()
+    return render_template('show_collecte.html', collectes=collectes)
+
 @app.route('/', methods=['GET'])
 def show_layout():
     return render_template('layout.html')
