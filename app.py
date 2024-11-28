@@ -44,6 +44,10 @@ def delete_client():
     get_db().commit()
     return redirect("/client/show")
 
+@app.route('/client/add', methods=['GET'])
+def edit_client():
+
+
 @app.route('/reduction', methods=['GET'])
 def show_reduction():
     my_cursor = get_db().cursor()
