@@ -32,7 +32,7 @@ def show_client():
     my_cursor.execute(sql)
     clients = my_cursor.fetchall()
     get_db().commit()
-    return render_template('show_client.html', clients=clients)
+    return render_template('client/show_client.html', clients=clients)
 
 
 @app.route('/client/delete', methods=['GET'])
@@ -40,13 +40,14 @@ def delete_client():
     my_cursor = get_db().cursor()
     sql = """DELETE FROM Client WHERE IdClient=%s"""
     print(request.args['id'])
-    my_cursor.execute(sql, (request.args['id']))
+    my_cursor.execute(sql, (request.args.get('id')))
     get_db().commit()
     return redirect("/client/show")
 
 @app.route('/client/add', methods=['GET'])
 def edit_client():
-
+    id = request.args.get('id')
+    return render_template('client/edit_client.html', id=id)
 
 @app.route('/reduction', methods=['GET'])
 def show_reduction():
