@@ -11,7 +11,7 @@
 <table class="table">
     <thead class="thead-dark">
         <tr>
-            <th>IdClient</th><th>Nom</th><th>Prénom</th><th>AdresseMail</th><th>Téléphone</th><th>IdRang</th><th>actions</th>
+            <th>IdClient</th><th>Nom</th><th>Prénom</th><th>AdresseMail</th><th>Téléphone</th><th>Rang</th><th>actions</th>
         </tr>
     </thead>
     <tbody>
@@ -20,10 +20,10 @@
            <tr>
                <td>{{ client.IdClient }}</td>
                <td>{{ client.Nom }}</td>
-               <td>{{ client.Prénom }}</td>
+               <td>{{ client.Prenom }}</td>
                <td>{{ client.AdresseMail }}</td>
-               <td>{{ client.Téléphone }}</td>
-               <td>{{ client.IdRang }}</td>
+               <td>{{ client.Telephone }}</td>
+               <td>{{ rang[client.IdRang]}} (IdRang={{client.IdRang}})</td>
                <td>
                       <a href="/client/edit?id={{ client.IdClient }}">editer</a>&nbsp;
                       <a href="/client/delete?id={{ client.IdClient }}" >supprimer</a>

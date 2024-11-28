@@ -7,29 +7,28 @@
 {% block body %}
     <h3>Modifier un client</h3>
     <br><br>
-    <form method="post" action="/client/edit">
-        <input type="hidden" name="IdClient" value="{{ client.IdClient }}">
+    <form method="post">
         <div class="input">
             <label for="Nom">Nom</label>
-            <input type="text"  id="Nom" name="Nom" value="{{ client.Nom }}">
+            <input type="text" class="form-control" id="Nom" name="Nom">
         </div>
         <div class="input">
             <label for="Prenom">Prénom</label>
-            <input type="text"  id="Prenom" name="Prenom" value="{{ client.Prenom }}">
+            <input type="text" class="form-control" id="Prenom" name="Prenom">
         </div>
         <div class="input">
             <label for="AdresseMail">Adresse mail</label>
-            <input type="email"  id="AdresseMail" name="AdresseMail" value="{{ client.AdresseMail }}">
+            <input type="email" class="form-control" id="AdresseMail" name="AdresseMail">
         </div>
         <div class="input">
             <label for="Telephone">Téléphone</label>
-            <input type="text"  id="Telephone" name="Telephone" value="{{ client.Telephone }}">
+            <input type="text" class="form-control" id="Telephone" name="Telephone">
         </div>
         <div class="input">
-            <label for="IdRang">Rang</label>
-            <select id="IdRang" name="IdRang">
+            <label for="rang">Rang</label>
+            <select id="rang" name="rang">
                 {% for rang in rangs %}
-                    <option value="{{ rang['IdRang'] }}" {% if rang['IdRang'] == client.IdRang %} selected {% endif %}>{{ rang.LibelleRang }}</option>
+                    <option value="{{ rang['IdRang'] }}">{{ rang.LibelleRang }}</option>
                 {% endfor %}
             </select>
         </div>

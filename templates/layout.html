@@ -7,7 +7,6 @@
         <title>layout</title>
     {% endblock %}
     {% block stylesheets %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap/css/bootstrap.css') }}" >
         <link rel="stylesheet" href="{{ url_for('static', filename='mes_styles.css') }}" >
     {% endblock %}
 </head>
@@ -24,9 +23,6 @@
 {% endwith %}
 {% block body %}
     <h2>layout.html</h2>
-{% endblock %}
-{% block javascripts %}
-    {##}
 {% endblock %}
 
 </body>
