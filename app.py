@@ -86,13 +86,65 @@ def valid_edit_client():
     get_db().commit()
     return redirect("/client/show")
 
-@app.route('/reduction', methods=['GET'])
+@app.route('/reduction/show', methods=['GET'])
 def show_reduction():
     my_cursor = get_db().cursor()
     sql = """SELECT * FROM Reduction"""
     my_cursor.execute(sql)
     reductions = my_cursor.fetchall()
-    return render_template('show_reduction.html', reductions=reductions)
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Rang"""
+    my_cursor.execute(sql)
+    rangs = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('reduction/show_reduction.html', reductions=reductions, typeVetements=typeVetements, rangs=rangs)
+
+@app.route('/reduction/delete', methods=['GET'])
+def delete_reduction():
+    my_cursor = get_db().cursor()
+    sql = """DELETE FROM Reduction WHERE IdTypeVetement=%s AND IdRang=%s"""
+    my_cursor.execute(sql, (request.args.get('IdTypeVetement'), request.args.get('IdRang')))
+    get_db().commit()
+    return redirect("/reduction/show")
+
+@app.route('/reduction/edit', methods=['GET'])
+def edit_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Reduction WHERE IdTypeVetement=%s AND IdRang=%s"""
+    my_cursor.execute(sql, (request.args.get('IdTypeVetement'), request.args.get('IdRang')))
+    reduction = my_cursor.fetchone()
+    get_db().commit()
+    return render_template('reduction/edit_reduction.html', reduction=reduction)
+
+@app.route('/reduction/edit', methods=['POST'])
+def valid_edit_reduction():
+    my_cursor = get_db().cursor()
+    sql = """UPDATE Reduction SET PourcentageReduction=%s WHERE IdTypeVetement=%s AND IdRang=%s"""
+    my_cursor.execute(sql, (request.form['PourcentageReduction'], request.form['IdTypeVetement'], request.form['IdRang']))
+    get_db().commit()
+    return redirect("/reduction/show")
+
+@app.route('/reduction/add', methods=['GET'])
+def add_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Rang"""
+    my_cursor.execute(sql)
+    rangs = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('reduction/add_reduction.html', typeVetements=typeVetements, rangs=rangs)
+
+@app.route('/reduction/add', methods=['POST'])
+def valid_add_reduction():
+    my_cursor = get_db().cursor()
+    sql = """INSERT INTO Reduction (IdTypeVetement, IdRang, PourcentageReduction) VALUES (%s, %s, %s)"""
+    my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdRang'], request.form['PourcentageReduction']))
+    get_db().commit()
+    return redirect("/reduction/show")
 
 @app.route('/collecte/show', methods=['GET'])
 def show_collecte():
