@@ -40,6 +40,22 @@ def show_client():
     get_db().commit()
     return render_template('client/show_client.html', clients=clients, rang=rang)
 
+@app.route('/client/add', methods=['GET'])
+def add_client():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Rang"""
+    my_cursor.execute(sql)
+    rangs = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('client/add_client.html', rangs=rangs)
+
+@app.route('/client/add', methods=['POST'])
+def valid_add_client():
+    my_cursor = get_db().cursor()
+    sql = """INSERT INTO Client (Nom, Prenom, AdresseMail, Telephone, IdRang) VALUES (%s, %s, %s, %s, %s)"""
+    my_cursor.execute(sql, (request.form['Nom'], request.form['Prenom'], request.form['AdresseMail'], request.form['Telephone'], request.form['IdRang']))
+    get_db().commit()
+    return redirect("/client/show")
 
 @app.route('/client/delete', methods=['GET'])
 def delete_client():

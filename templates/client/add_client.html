@@ -25,8 +25,8 @@
             <input type="text" class="form-control" id="Telephone" name="Telephone">
         </div>
         <div class="input">
-            <label for="rang">Rang</label>
-            <select id="rang" name="rang">
+            <label for="IdRang">Rang</label>
+            <select id="IdRang" name="IdRang">
                 {% for rang in rangs %}
                     <option value="{{ rang['IdRang'] }}">{{ rang.LibelleRang }}</option>
                 {% endfor %}
