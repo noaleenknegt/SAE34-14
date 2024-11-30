@@ -122,22 +122,44 @@ def delete_collecte():
 def edit_collecte():
     my_cursor = get_db().cursor()
     sql = """SELECT * FROM Collecte WHERE IdTypeVetement=%s AND IdBenne=%s AND JJ_MM_AAAA=%s"""
+    args = (request.args.get('IdTypeVetement'), request.args.get('IdBenne'), request.args.get('JJ_MM_AAAA'))
     my_cursor.execute(sql, (request.args.get('IdTypeVetement'), request.args.get('IdBenne'), request.args.get('JJ_MM_AAAA')))
     collecte = my_cursor.fetchone()
+    print(collecte)
     sql = """SELECT * FROM TypeVetement"""
     my_cursor.execute(sql)
-    typeVetement = my_cursor.fetchall()
+    typeVetements = my_cursor.fetchall()
     sql = """SELECT * FROM Benne"""
     my_cursor.execute(sql)
-    benne = my_cursor.fetchall()
+    bennes = my_cursor.fetchall()
     get_db().commit()
-    return render_template('collecte/edit_collecte.html', collecte=collecte, typeVetement=typeVetement, benne=benne)
+    return render_template('collecte/edit_collecte.html', collecte=collecte, typeVetements=typeVetements, bennes=bennes, args=args)
 
 @app.route('/collecte/edit', methods=['POST'])
 def valid_edit_collecte():
     my_cursor = get_db().cursor()
-    sql = """UPDATE Benne SET IdTypeVetement=%s, IdBenne=%s, JJ_MM_AAAA=%s, Quantite=%s WHERE IdTypeVetement=%s AND IdBenne=%s AND JJ_MM_AAAA=%s"""
-    my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdBenne'], request.form['JJ_MM_AAAA'], request.form['Quantite']))
+    sql = """UPDATE Collecte SET Quantite_Collectee=%s WHERE IdTypeVetement=%s AND IdBenne=%s AND JJ_MM_AAAA=%s"""
+    my_cursor.execute(sql, (request.form['Quantite_Collectee'], request.form['IdTypeVetement'], request.form['IdBenne'], request.form['JJ_MM_AAAA']))
+    get_db().commit()
+    return redirect("/collecte/show")
+
+@app.route('/collecte/add', methods=['GET'])
+def add_collecte():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Benne"""
+    my_cursor.execute(sql)
+    bennes = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('collecte/add_collecte.html', typeVetements=typeVetements, bennes=bennes)
+
+@app.route('/collecte/add', methods=['POST'])
+def valid_add_collecte():
+    my_cursor = get_db().cursor()
+    sql = """INSERT INTO Collecte (IdTypeVetement, IdBenne, JJ_MM_AAAA, Quantite_Collectee) VALUES (%s, %s, %s, %s)"""
+    my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdBenne'], request.form['JJ_MM_AAAA'], request.form['Quantite_Collectee']))
     get_db().commit()
     return redirect("/collecte/show")
 @app.route('/', methods=['GET'])

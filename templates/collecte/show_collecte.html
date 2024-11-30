@@ -1,11 +1,12 @@
 {% extends 'layout.html' %}
 
 {% block title %}
-    <title>Afficher les clients</title>
+    <title>Afficher les collectes</title>
 {% endblock %}
 
 {% block body %}
-<h3>Clients</h3>
+<h3>Collectes</h3>
+<a href="/collecte/add">Ajouter collecte</a>
 <br><br>
 
 <table class="table">
@@ -21,9 +22,10 @@
                <td>{{ typeVetement[collecte.IdTypeVetement-1]['LibelleTypeVetement']}} (IdTypeVetement={{collecte.IdTypeVetement}})</td>
                <td>{{ benne[collecte.IdBenne-1]['Adresse']}} (IdBenne={{collecte.IdBenne}})</td>
                <td>{{ collecte.JJ_MM_AAAA }}</td>
+               <td>{{ collecte.Quantite_Collectee }}g</td>
                <td>
-                      <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}?IdBenne={{ collecte.IdBenne }}?JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}">editer</a>&nbsp;
-                      <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}?IdBenne={{ collecte.IdBenne }}?JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" >supprimer</a>
+                      <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}">editer</a>&nbsp;
+                      <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" >supprimer</a>
                </td>
            </tr>
         {% endfor %}

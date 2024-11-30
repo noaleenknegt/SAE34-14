@@ -159,3 +159,6 @@ FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
     JOIN Rang ON Client.IdRang = Rang.IdRang
 GROUP BY Client.Nom, Client.Prenom, Rang.LibelleRang
 ORDER BY NomClient, PrenomClient;
+
+SELECT *
+FROM Collecte;

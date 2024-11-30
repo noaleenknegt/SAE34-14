@@ -27,6 +27,7 @@
         <div class="input">
             <label for="IdRang">Rang</label>
             <select id="IdRang" name="IdRang">
+                <option value="">Choisissez un rang</option>
                 {% for rang in rangs %}
                     <option value="{{ rang['IdRang'] }}">{{ rang.LibelleRang }}</option>
                 {% endfor %}

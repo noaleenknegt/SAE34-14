@@ -8,28 +8,11 @@
     <h3>Modifier une collecte</h3>
     <br><br>
     <form method="post" action="/collecte/edit">
+        <input type="hidden" name="IdTypeVetement" value="{{collecte.IdTypeVetement}}">
+        <input type="hidden" name="IdBenne" value="{{collecte.IdBenne}}">
+        <input type="hidden" name="JJ_MM_AAAA" value="{{collecte.JJ_MM_AAAA}}">
         <div class="input">
-            <label for="IdTypeVetement">Rang</label>
-            <select id="IdTypeVetement" name="IdTypeVetement">
-                {% for typeVetement in typeVetements %}
-                    <option value="{{ typeVetement['IdTypeVetement'] }}" {% if collecte.IdTypeVetement == typeVetement.IdTypeVetement %} selected {% endif %}>{{ typeVetement.LibelleTypeVetement }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="input">
-            <label for="IdBenne">Rang</label>
-            <select id="IdBenne" name="IdBenne">
-                {% for benne in bennes %}
-                    <option value="{{ benne['IdBenne'] }}"  {% if collecte.IdTypeVetement == typeVetement.IdTypeVetement %} selected {% endif %}>{{ benne.Adresse }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="input">
-            <label for="JJ_MM_AAAA">JJ_MM_AAAA</label>
-            <input type="date" id="JJ_MM_AAAA" name="JJ_MM_AAAA" value="{{collecte.JJ_MM_AAAA}}">
-        </div>
-        <div class="input">
-            <label for="Quantite_Collectee">Heure</label>
+            <label for="Quantite_Collectee">Quantite_Collectee</label>
             <input type="number" id="Quantite_Collectee" name="Quantite_Collectee" value="{{collecte.Quantite_Collectee}}">
         </div>
         <button type="submit">Modifier</button>
