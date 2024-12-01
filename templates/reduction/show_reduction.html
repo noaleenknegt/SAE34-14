@@ -3,11 +3,6 @@
 {% block title %}
     <title>Afficher les réductions</title>
 {% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='mes_styles.css') }}" > <!-- css -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/css/bootstrap.css') }}" > <!-- css bootstrap -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" /> <!-- font google -->
-{% endblock %}
 
 
 {% block body %}
@@ -48,8 +43,4 @@
     {% endif %}
     </tbody>
 </table>
-<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}" >
-{% endblock %}
-{% block scripts %}
-    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script> <!-- js bootstrap -->
 {% endblock %}
