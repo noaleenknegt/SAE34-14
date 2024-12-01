@@ -28,7 +28,7 @@ def teardown_db(exception):
 @app.route('/client/show', methods=['GET'])
 def show_client():
     my_cursor = get_db().cursor()
-    rang = {};
+    rang = {}
     sql = """SELECT * FROM Client"""
     my_cursor.execute(sql)
     clients = my_cursor.fetchall()
@@ -47,7 +47,10 @@ def add_client():
     my_cursor.execute(sql)
     rangs = my_cursor.fetchall()
     get_db().commit()
-    return render_template('client/add_client.html', rangs=rangs)
+    rang = {}
+    for i in rangs:
+        rang[i['IdRang']] = i['LibelleRang']
+    return render_template('client/add_client.html', rang=rang)
 
 @app.route('/client/add', methods=['POST'])
 def valid_add_client():
@@ -81,9 +84,15 @@ def edit_client():
 @app.route('/client/edit', methods=['POST'])
 def valid_edit_client():
     my_cursor = get_db().cursor()
-    sql = """UPDATE Client SET Nom=%s, Prenom=%s, IdRang=%s, Telephone=%s WHERE IdClient=%s"""
-    my_cursor.execute(sql, (request.form['Nom'], request.form['Prenom'], request.form['IdRang'],request.form['Telephone'], request.form['IdClient']))
-    get_db().commit()
+    Nom = request.form['Nom']
+    Prenom = request.form['Prenom']
+    IdRang = request.form['IdRang']
+    Telephone = request.form['Telephone']
+    IdClient = request.form['IdClient']
+    if (len(Nom) <= 20 and len(Prenom) <= 20 and len(Telephone) == 10 ):
+        sql = """UPDATE Client SET Nom=%s, Prenom=%s, IdRang=%s, Telephone=%s WHERE IdClient=%s"""
+        my_cursor.execute(sql, (Nom, Prenom, IdRang, Telephone, IdClient))
+        get_db().commit()
     return redirect("/client/show")
 
 @app.route('/reduction/show', methods=['GET'])
