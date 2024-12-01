@@ -19,7 +19,7 @@
 <!-- <a> Filter <span class="material-symbols-outlined">search</span></a> -->
 <br>
 
-<h4>Liste des réductions disponibles : </h4>
+<h4><strong>Liste des réductions disponibles : </strong></h4>
 <table class="table">
     <thead>
         <tr>
@@ -34,8 +34,8 @@
                <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
                <td>- {{ reduction.PourcentageReduction }}%</td>
                <td>
-                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">edit</span></a>&nbsp;
-                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">delete</span></a>
+                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">edit</span></a>&nbsp;
+                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">delete</span></a>
                </td>
            </tr>
         {% endfor %}

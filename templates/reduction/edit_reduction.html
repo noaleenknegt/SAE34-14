@@ -1,19 +1,28 @@
 {% extends 'layout.html' %}
 
-    {% block title %}
-        <title>Modifier une réduction</title>
-    {% endblock %}
-
-    {% block body %}
-        <h3>Modifier une réduction</h3>
-        <br><br>
-        <form method="post">
+{% block title %}
+    <title>Modifier une réduction</title>
+{% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" >
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/css/bootstrap.css') }}" >
+{% endblock %}
+{% block body %}
+    <h3>Modifier une réduction</h3>
+    <br><br>
+    <form method="post">
+        <div class="mb-3">
             <div class="input">
                 <input type="hidden" name="IdRang" value="{{reduction.IdRang}}">
                 <input type="hidden" name="IdTypeVetement" value="{{reduction.IdTypeVetement}}">
                 <label for="PourcentageReduction">Pourcentage de réduction</label>
-                <input type="number" id="PourcentageReduction" name="PourcentageReduction" value="{{reduction.PourcentageReduction}}">
+                <input type="number" id="PourcentageReduction" class="form-control" name="PourcentageReduction" value="{{reduction.PourcentageReduction}}">
             </div>
-            <button type="submit">Modifier</button>
-        </form>
-    {% endblock %}
+        </div>
+        <button type="submit" class="btn btn-success">Modifier</button>
+    </form>
+    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script>
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script> <!-- js bootstrap -->
+{% endblock %}
