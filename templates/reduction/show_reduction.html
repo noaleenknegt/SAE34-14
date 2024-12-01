@@ -3,13 +3,24 @@
 {% block title %}
     <title>Afficher les réductions</title>
 {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='mes_styles.css') }}" > <!-- css -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/css/bootstrap.css') }}" > <!-- css bootstrap -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@40,400,0,0" /> <!-- font google -->
+{% endblock %}
+
 
 {% block body %}
 <h3>Réductions</h3>
-<a href="/reduction/add">Ajouter réduction</a>
 <br><br>
+<button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
+    Ajouter réduction <span class="material-symbols-outlined" style="margin-left: 5px;">add</span>
+</button>
+<!-- <a> Filter <span class="material-symbols-outlined">search</span></a> -->
+<br>
 
-<table>
+<h4>Liste des réductions disponibles : </h4>
+<table class="table">
     <thead>
         <tr>
             <th>Rang</th><th>TypeVetement</th><th>PourcentageReduction</th><th>actions</th>
@@ -21,10 +32,10 @@
            <tr>
                <td>{{ rangs[reduction.IdRang-1]['LibelleRang'] }}</td>
                <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
-               <td>{{ reduction.PourcentageReduction }}</td>
+               <td>- {{ reduction.PourcentageReduction }}%</td>
                <td>
-                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}">editer</a>&nbsp;
-                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" >supprimer</a>
+                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">edit</span></a>&nbsp;
+                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">delete</span></a>
                </td>
            </tr>
         {% endfor %}
@@ -37,4 +48,8 @@
     {% endif %}
     </tbody>
 </table>
+<link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}" >
+{% endblock %}
+{% block scripts %}
+    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script> <!-- js bootstrap -->
 {% endblock %}
