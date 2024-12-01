@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Ajouter un achat</title>
+{% endblock %}
+
+{% block body %}
+    <h3>Ajouter un achat</h3>
+    <br><br>
+    <form method="post" action="/achat/add">
+        <div class="input">
+            <label for="IdClient">Rang</label>
+            <select id="IdClient" name="IdClient">
+                <option value="">Choisissez le rang du client</option>
+                {% for client in clients %}
+                    <option value="{{ client['IdClient'] }}">{{ client.IdRang }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input">
+            <label for="IdTypeVetement">Rang</label>
+            <select id="IdTypeVetement" name="IdTypeVetement">
+                <option value="">Choisissez un type de vêtement</option>
+                {% for typeVetement in typeVetements %}
+                    <option value="{{ typeVetement['IdTypeVetement'] }}">{{ typeVetement.LibelleTypeVetement }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="input">
+            <label for="JJ_MM_AAAA">JJ_MM_AAAA</label>
+            <input type="date" id="JJ_MM_AAAA" name="JJ_MM_AAAA">
+        </div>
+        <div class="input">
+            <label for="Quantite_Achetee">Quantite_Achetee</label>
+            <input type="number" id="Quantite_Achetee" name="Quantite_Achetee">
+        </div>
+        <button type="submit">Modifier</button>
+    </form>
+{% endblock %}
