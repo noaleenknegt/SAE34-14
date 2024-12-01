@@ -34,8 +34,8 @@
                <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
                <td>- {{ reduction.PourcentageReduction }}%</td>
                <td>
-                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">edit</span></a>&nbsp;
-                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}"><span class="material-symbols-outlined">delete</span></a>
+                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">edit</span></a>&nbsp;
+                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">delete</span></a>
                </td>
            </tr>
         {% endfor %}
