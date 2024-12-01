@@ -27,6 +27,8 @@ def teardown_db(exception):
 
 @app.route('/client/show', methods=['GET'])
 def show_client():
+    #faire verif trucs clients
+    #faire cascade delete et flash
     my_cursor = get_db().cursor()
     rang = {}
     sql = """SELECT * FROM Client"""
@@ -37,8 +39,26 @@ def show_client():
     rangs = my_cursor.fetchall()
     for i in rangs:
         rang[i['IdRang']] = i['LibelleRang']
+    sql = """SELECT Client.IdCLient, SUM(Achete.Quantite_Achetee) AS TotalAchetee
+    FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
+        JOIN Rang ON Client.IdRang = Rang.IdRang
+    GROUP BY Client.IdCLient;"""
+    my_cursor.execute(sql)
+    totalAchetee = my_cursor.fetchall()
+    TotalDeposee = {}
+    sql = """SELECT Client.IdClient, SUM(Depose.Quantite_Deposee) AS TotalDeposee
+    FROM Depose RIGHT JOIN Client ON Depose.IdClient = Client.IdClient
+        JOIN Rang ON Client.IdRang = Rang.IdRang
+    GROUP BY Client.IdClient;"""
+    my_cursor.execute(sql)
+    totalDeposee = my_cursor.fetchall()
     get_db().commit()
-    return render_template('client/show_client.html', clients=clients, rang=rang)
+    TotalAchetee = {}
+    for i in totalAchetee:
+        TotalAchetee[i['IdCLient']] = i['TotalAchetee'] if i['TotalAchetee'] is not None else 0
+    for i in totalDeposee:
+        TotalDeposee[i['IdClient']]= i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
+    return render_template('client/show_client.html', clients=clients, rang=rang, TotalAchetee=TotalAchetee, TotalDeposee=TotalDeposee)
 
 @app.route('/client/add', methods=['GET'])
 def add_client():
@@ -47,10 +67,7 @@ def add_client():
     my_cursor.execute(sql)
     rangs = my_cursor.fetchall()
     get_db().commit()
-    rang = {}
-    for i in rangs:
-        rang[i['IdRang']] = i['LibelleRang']
-    return render_template('client/add_client.html', rang=rang)
+    return render_template('client/add_client.html', rangs=rangs)
 
 @app.route('/client/add', methods=['POST'])
 def valid_add_client():
