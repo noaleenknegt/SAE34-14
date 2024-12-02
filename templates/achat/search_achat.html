@@ -1,0 +1,55 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<h1>Rechercher des Achats</h1>
+<form method="get" action="/achat/search">
+    <label for="IdClient">Client :</label>
+    <select name="IdClient" id="IdClient">
+        <option value="">Tous</option>
+        {% for client in clients %}
+        <option value="{{ client.IdClient }}">{{ client.Nom }} {{ client.Prenom }}</option>
+        {% endfor %}
+    </select>
+
+    <label for="IdTypeVetement">Type de Vêtement :</label>
+    <select id="IdTypeVetement" name="IdTypeVetement">
+                <option value="">Choisissez un type de vêtement</option>
+                {% for typeVetement in typeVetements %}
+                    <option value="{{ achat['IdTypeVetement'] }}">{{ achat.TypeVetement }}</option>
+                {% endfor %}
+            </select>
+
+    <label for="JJ_MM_AAAA">Date :</label>
+    <input type="date" name="JJ_MM_AAAA" id="JJ_MM_AAAA">
+
+    <label for="Quantite_Achetee_Min">Quantité Min :</label>
+    <input type="number" name="Quantite_Achetee_Min" id="Quantite_Achetee_Min">
+
+    <label for="Quantite_Achetee_Max">Quantité Max :</label>
+    <input type="number" name="Quantite_Achetee_Max" id="Quantite_Achetee_Max">
+
+    <button type="submit">Rechercher</button>
+</form>
+
+<h2>Résultats</h2>
+<table>
+    <thead>
+        <tr>
+            <th>Client</th>
+            <th>TypeVetement</th>
+            <th>JJ_MM_AAAA</th>
+            <th>Quantite_Achetee</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for achat in achats %}
+        <tr>
+            <td>{{ achat.IdClient }}</td>
+            <td>{{ achat.IdTypeVetement }}</td>
+            <td>{{ achat.JJ_MM_AAAA }}</td>
+            <td>{{ achat.Quantite_Achetee }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

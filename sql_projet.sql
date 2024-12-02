@@ -160,4 +160,17 @@ FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
 GROUP BY Client.Nom, Client.Prenom, Rang.LibelleRang
 ORDER BY NomClient, PrenomClient;
 
+SELECT CONCAT(Client.Nom, ' ', Client.Prenom) AS Client,
+    TypeVetement.LibelleTypeVetement AS TypeVetement,
+    Rang.LibelleRang AS Rang,
+    SUM(Achete.Quantite_Achetee) AS TotalAchetee,
+    SUM(Achete.Quantite_Achetee * TypeVetement.PrixKilo * (1 - COALESCE(Reduction.PourcentageReduction, 0) / 100)) AS TotalPrix
+FROM Achete
+JOIN Client ON Achete.IdClient = Client.IdClient
+JOIN TypeVetement ON Achete.IdTypeVetement = TypeVetement.IdTypeVetement
+JOIN Rang ON Client.IdRang = Rang.IdRang
+LEFT JOIN Reduction ON Client.IdRang = Reduction.IdRang AND Achete.IdTypeVetement = Reduction.IdTypeVetement
+GROUP BY Client.Nom, Client.Prenom, Rang.LibelleRang, TypeVetement.LibelleTypeVetement
+ORDER BY Client, TypeVetement;
+
 

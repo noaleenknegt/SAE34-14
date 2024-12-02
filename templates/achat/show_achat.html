@@ -40,38 +40,3 @@
 </table>
 {% endblock %}
 
-{% block body %}
-<h3>Achats pendant la semaine</h3>
-<br><br>
-
-<table class="table">
-    <thead class="thead-dark">
-        <tr>
-            <th>Lundi</th><th>Mardi</th><th>Mercredi</th><th>Jeudi</th><th>Vendredi</th><th>Samedi</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% if achats | length >= 1 %}
-        {% for achat in achats %}
-            <tr>
-                <td>{{ achat.IdClient }}</td>
-                <td>{{ achat.IdTypeVetement }}</td>
-                <td>{{ achat.JJ_MM_AAAA }}</td>
-                <td>{{ achat.Quantite_Achetee }}</td>
-
-                <td>
-                        <a href="/achat/edit?id={{ achat.IdClient }}">editer</a>&nbsp;
-                        <a href="/achat/delete?id={{ achat.IdClient }}">supprimer</a>
-                </td>
-            </tr>
-        {% endfor %}
-    {% else %}
-            <tr>
-                    <td>
-                    pas d'achat
-                    </td>
-            </tr>
-    {% endif %}
-    </tbody>
-</table>
-{% endblock %}

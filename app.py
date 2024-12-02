@@ -331,6 +331,38 @@ def valid_add_achat():
     get_db().commit()
     return redirect("/achat/show")
 
+@app.route('/achat/search', methods=['GET'])
+def search_achat():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Achete WHERE 1=1"""
+    filters = []
+    if request.args.get('IdClient'):
+        sql += " AND IdClient = %s"
+        filters.append(request.args.get('IdClient'))
+    if request.args.get('IdTypeVetement'):
+        sql += " AND IdTypeVetement = %s"
+        filters.append(request.args.get('IdTypeVetement'))
+    if request.args.get('JJ_MM_AAAA'):
+        sql += " AND JJ_MM_AAAA = %s"
+        filters.append(request.args.get('JJ_MM_AAAA'))
+    if request.args.get('Quantite_Achetee_Min'):
+        sql += " AND Quantite_Achetee >= %s"
+        filters.append(request.args.get('Quantite_Achetee_Min'))
+    if request.args.get('Quantite_Achetee_Max'):
+        sql += " AND Quantite_Achetee <= %s"
+        filters.append(request.args.get('Quantite_Achetee_Max'))
+    my_cursor.execute(sql, filters)
+    achats = my_cursor.fetchall()
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    clients = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typevetements = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('achat/search_achat.html',achats=achats,clients=clients,typevetements=typevetements)
+
+
 @app.route('/', methods=['GET'])
 def show_layout():
     return render_template('layout.html')
