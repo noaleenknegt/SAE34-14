@@ -1,1 +1,8 @@
-
+ /* Afficher le menu déroulant au survol */
+ .dropdown:hover .dropdown-menu {
+    display: block;
+  }
+  /* Empêcher la fermeture du menu lorsqu'on navigue dedans */
+  .dropdown-menu {
+    margin-top: 0; /* Corrige le léger décalage */
+  }
