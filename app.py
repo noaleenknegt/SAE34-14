@@ -175,6 +175,24 @@ def valid_add_reduction():
     get_db().commit()
     return redirect("/reduction/show")
 
+
+@app.route('/reduction/filtre', methods=['GET'])
+def show_filre_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Reduction"""
+    my_cursor.execute(sql)
+    reductions = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Rang"""
+    my_cursor.execute(sql)
+    rangs = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('reduction/filtre_reduction.html', reductions=reductions, typeVetements=typeVetements,
+                           rangs=rangs)
+
+
 @app.route('/collecte/show', methods=['GET'])
 def show_collecte():
     my_cursor = get_db().cursor()
