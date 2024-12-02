@@ -286,6 +286,12 @@ def show_filtre_collecte():
     if request.args.get('JJ_MM_AAAA'):
         sql += " AND JJ_MM_AAAA=%s"
         filters.append(request.args.get('JJ_MM_AAAA'))
+    if request.args.get('Quantite_Collectee_Min'):
+        sql += " AND Quantite_Collectee >= %s"
+        filters.append(request.args.get('Quantite_Collectee_Min'))
+    if request.args.get('Quantite_Collectee_Max'):
+        sql += " AND Quantite_Collectee <= %s"
+        filters.append(request.args.get('Quantite_Collectee_Max'))
     my_cursor.execute(sql, filters)
     collectes = my_cursor.fetchall()
     sql = """SELECT * FROM TypeVetement"""
