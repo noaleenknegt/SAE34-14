@@ -6,49 +6,51 @@
 
 
 {% block body %}
-<h3>Réductions</h3>
-<br><br>
-<div style="display: flex; gap: 12px;">
-    <button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
-        Ajouter réduction <span class="material-symbols-outlined" style="margin-left: 5px;">add</span>
-    </button>
-    <button onclick="location.href='/reduction/filtre'" class="btn btn-primary" style="display: flex; align-items: center;">
-        Filtrer réduction <span class="material-symbols-outlined" style="margin-left: 5px;">search</span>
-    </button>
-</div>
-<!-- <a> Filter <span class="material-symbols-outlined">search</span></a> -->
-<br>
+<div class="container">
+    <h3>Réductions</h3>
+    <br><br>
+    <div style="display: flex; gap: 12px;">
+        <button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
+            Ajouter réduction <span class="material-symbols-outlined" style="margin-left: 5px;">add</span>
+        </button>
+        <button onclick="location.href='/reduction/filtre'" class="btn btn-primary" style="display: flex; align-items: center;">
+            Filtrer réduction <span class="material-symbols-outlined" style="margin-left: 5px;">search</span>
+        </button>
+    </div>
+    <!-- <a> Filter <span class="material-symbols-outlined">search</span></a> -->
+    <br>
 
 
 
 
-<h4><strong>Liste des réductions disponibles : </strong></h4>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Rang</th><th>TypeVetement</th><th>PourcentageReduction</th><th>actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% if reductions | length >= 1 %}
-        {% for reduction in reductions %}
-           <tr>
-               <td>{{ rangs[reduction.IdRang-1]['LibelleRang'] }}</td>
-               <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
-               <td>- {{ reduction.PourcentageReduction }}%</td>
-               <td>
-                      <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">edit</span></a>&nbsp;
-                      <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">delete</span></a>
-               </td>
-           </tr>
-        {% endfor %}
-    {% else %}
+    <h4><strong>Liste des réductions disponibles : </strong></h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
             <tr>
-                  <td>
-                      pas de reductions
-                  </td>
-           </tr>
-    {% endif %}
-    </tbody>
-</table>
+                <th>Rang</th><th>TypeVetement</th><th>PourcentageReduction</th><th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% if reductions | length >= 1 %}
+            {% for reduction in reductions %}
+               <tr>
+                   <td>{{ rangs[reduction.IdRang-1]['LibelleRang'] }}</td>
+                   <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
+                   <td>- {{ reduction.PourcentageReduction }}%</td>
+                   <td>
+                          <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">edit</span></a>&nbsp;
+                          <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">delete</span></a>
+                   </td>
+               </tr>
+            {% endfor %}
+        {% else %}
+                <tr>
+                      <td>
+                          pas de reductions
+                      </td>
+               </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

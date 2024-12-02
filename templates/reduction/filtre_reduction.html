@@ -3,6 +3,7 @@
     <title> Filter les réductions</title>
 {% endblock %}
 {% block body %}
+<div class="container">
     <h3> Filter les réductions</h3>
 
     <form method="get" action="/reduction/filtre">
@@ -28,8 +29,8 @@
     </form>
     <br><br>
     <h4>Filtre des réductions :</h4>
-    <table class="table">
-        <thead>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
             <tr>
                 <th>Rang</th><th>TypeVetement</th><th>PourcentageReduction</th>
             </tr>
@@ -52,4 +53,5 @@
         {% endif %}
         </tbody>
     </table>
+</div>
 {% endblock %}
