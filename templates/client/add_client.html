@@ -10,29 +10,29 @@
     <form method="post">
         <div class="input">
             <label for="Nom">Nom</label>
-            <input type="text" class="form-control" id="Nom" name="Nom">
+            <input type="text" class="form-control" id="Nom" name="Nom" required>
         </div>
         <div class="input">
             <label for="Prenom">Prénom</label>
-            <input type="text" class="form-control" id="Prenom" name="Prenom">
+            <input type="text" class="form-control" id="Prenom" name="Prenom" required>
         </div>
         <div class="input">
             <label for="AdresseMail">Adresse mail</label>
-            <input type="email" class="form-control" id="AdresseMail" name="AdresseMail">
+            <input type="email" class="form-control" id="AdresseMail" name="AdresseMail" required>
         </div>
         <div class="input">
             <label for="Telephone">Téléphone</label>
-            <input type="text" class="form-control" id="Telephone" name="Telephone">
+            <input type="text" class="form-control" id="Telephone" name="Telephone" required>
         </div>
         <div class="input">
             <label for="IdRang">Rang</label>
-            <select id="IdRang" name="IdRang">
+            <select id="IdRang" name="IdRang" required>
                 <option value="">Choisissez un rang</option>
                 {% for rang in rangs %}
                     <option value="{{ rang['IdRang'] }}">{{ rang.LibelleRang }}</option>
                 {% endfor %}
             </select>
         </div>
-        <button type="submit">Modifier</button>
+        <button class="btn" type="submit">Ajouter</button>
     </form>
 {% endblock %}

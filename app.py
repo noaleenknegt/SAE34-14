@@ -58,8 +58,11 @@ def show_client():
         TotalAchetee[i['IdCLient']] = i['TotalAchetee'] if i['TotalAchetee'] is not None else 0
     for i in totalDeposee:
         TotalDeposee[i['IdClient']]= i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
-    return render_template('client/show_client.html', clients=clients, rang=rang, TotalAchetee=TotalAchetee, TotalDeposee=TotalDeposee)
+    return render_template('client/show_client.html', clients=clients, rang=rang)
 
+@app.route('/client/filtre', methods=['GET'])
+def filtre_client():
+    pass
 @app.route('/client/add', methods=['GET'])
 def add_client():
     my_cursor = get_db().cursor()
@@ -171,6 +174,24 @@ def valid_add_reduction():
     my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdRang'], request.form['PourcentageReduction']))
     get_db().commit()
     return redirect("/reduction/show")
+
+
+@app.route('/reduction/filtre', methods=['GET'])
+def show_filre_reduction():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Reduction"""
+    my_cursor.execute(sql)
+    reductions = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Rang"""
+    my_cursor.execute(sql)
+    rangs = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('reduction/filtre_reduction.html', reductions=reductions, typeVetements=typeVetements,
+                           rangs=rangs)
+
 
 @app.route('/collecte/show', methods=['GET'])
 def show_collecte():

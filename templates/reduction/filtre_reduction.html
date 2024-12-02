@@ -1,5 +1,57 @@
 {% extends 'layout.html' %}
-
 {% block title %}
-    <title>Afficher les réductions</title>
+    <title> Filter les réductions</title>
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h3> Filter les réductions</h3>
+
+    <form method="get" action="/reduction/filtre">
+    <div class="input-group">
+        <span class="input-group-text"> Propriétés </span>
+        <label for="IdRang" class="form-label"></label>
+        <select id="IdRang" class="form-select" name="IdRang">
+            <option value="">Tous les rangs</option>
+            {% for rang in rangs %}
+                <option value="{{ rang.IdRang }}">{{ rang.LibelleRang }}</option>
+            {% endfor %}
+        </select>
+        <label for="IdTypeVetement" class="form-label"></label>
+        <select id="IdTypeVetement" class="form-select" name="IdTypeVetement">
+            <option value="">Tous les types de vêtements</option>
+            {% for typeVetement in typeVetements %}
+                <option value="{{ typeVetement.IdTypeVetement }}">{{ typeVetement.LibelleTypeVetement }}</option>
+            {% endfor %}
+        </select>
+    </div>
+        <br>
+    <button type="submit" class="btn btn-primary">Filtrer</button>
+    </form>
+    <br><br>
+    <h4>Filtre des réductions :</h4>
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Rang</th><th>TypeVetement</th><th>PourcentageReduction</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if reductions | length >= 1 %}
+        {% for reduction in reductions %}
+           <tr>
+               <td>{{ rangs[reduction.IdRang-1]['LibelleRang'] }}</td>
+               <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
+               <td>- {{ reduction.PourcentageReduction }}%</td>
+            </tr>
+            {% endfor %}
+            {% else %}
+                <tr>
+                    <td>
+                        pas de reductions
+                    </td>
+                </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
