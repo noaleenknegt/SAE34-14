@@ -8,7 +8,8 @@
 <h3>Achats</h3>
 <br>
 <a href="/achat/add" class="btn btn-success mb-3">Ajouter un achat</a>
-<table class="table table-bordered table-striped">
+<div class="table-responsive">
+    <table class="table table-bordered table-striped">
             <thead class="table-dark">
         <tr>
             <th>IdClient</th><th>IdTypeVetement</th><th>JJ_MM_AAAA</th><th>Quantite_Achetee</th>
@@ -37,6 +38,7 @@
             </tr>
     {% endif %}
     </tbody>
-</table>
+    </table>
+</div>
 {% endblock %}
 
