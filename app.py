@@ -60,6 +60,9 @@ def show_client():
         TotalDeposee[i['IdClient']]= i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
     return render_template('client/show_client.html', clients=clients, rang=rang)
 
+@app.route('/client/filtre', methods=['GET'])
+def filtre_client():
+    pass
 @app.route('/client/add', methods=['GET'])
 def add_client():
     my_cursor = get_db().cursor()
