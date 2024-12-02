@@ -18,14 +18,14 @@
     {% if achats | length >= 1 %}
         {% for achat in achats %}
             <tr>
-                <td>{{ achete.IdClient }}</td>
-                <td>{{ achete.IdTypeVetement }}</td>
-                <td>{{ achete.JJ_MM_AAAA }}</td>
-                <td>{{ achete.Quantite_Achetee }}</td>
+                <td>{{ achat.IdClient }}</td>
+                <td>{{ achat.IdTypeVetement }}</td>
+                <td>{{ achat.JJ_MM_AAAA }}</td>
+                <td>{{ achat.Quantite_Achetee }}</td>
 
                 <td>
-                        <a href="/achat/edit?id={{ achete.IdClient }}">editer</a>&nbsp;
-                        <a href="/achat/delete?id={{ achete.IdClient }}">supprimer</a>
+                        <a href="/achat/edit?id={{ achat.IdClient }}">editer</a>&nbsp;
+                        <a href="/achat/delete?id={{ achat.IdClient }}">supprimer</a>
                 </td>
             </tr>
         {% endfor %}
