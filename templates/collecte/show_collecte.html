@@ -5,37 +5,56 @@
 {% endblock %}
 
 {% block body %}
-<h3>Collectes</h3>
-<a href="/collecte/add">Ajouter collecte</a>
-<br><br>
+<div class="container mt-4">
+    <h3 class="mb-4">Collectes</h3>
+    <a href="/collecte/add" class="btn btn-success mb-3">Ajouter une collecte</a>
 
-<table>
-    <thead>
-        <tr>
-            <th>TypeVetement</th><th>Benne</th><th>JJ_MM_AAAA</th><th>Quantite_Collectee</th><th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-    {% if collectes | length >= 1 %}
-        {% for collecte in collectes %}
-           <tr>
-               <td>{{ typeVetement[collecte.IdTypeVetement-1]['LibelleTypeVetement']}} (IdTypeVetement={{collecte.IdTypeVetement}})</td>
-               <td>{{ benne[collecte.IdBenne-1]['Adresse']}} (IdBenne={{collecte.IdBenne}})</td>
-               <td>{{ collecte.JJ_MM_AAAA }}</td>
-               <td>{{ collecte.Quantite_Collectee }}g</td>
-               <td>
-                      <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}">editer</a>&nbsp;
-                      <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" >supprimer</a>
-               </td>
-           </tr>
-        {% endfor %}
-    {% else %}
-            <tr>
-                  <td>
-                      pas de collectes
-                  </td>
-           </tr>
-    {% endif %}
-    </tbody>
-</table>
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th>Type de vêtement</th>
+                    <th>Benne</th>
+                    <th>Date (JJ/MM/AAAA)</th>
+                    <th>Quantité collectée</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if collectes | length >= 1 %}
+                    {% for collecte in collectes %}
+                    <tr>
+                        <td>
+                            {{ typeVetement[collecte.IdTypeVetement-1]['LibelleTypeVetement'] }} 
+                            <div class="bg-light p-2 mt-1 border rounded"></div>
+                        </td>
+                        <td>
+                            {{ benne[collecte.IdBenne-1]['Adresse'] }}
+                            <div class="bg-light p-2 mt-1 border rounded">
+                                <span class="text-muted">IdBenne {{ collecte.IdBenne }}</span>
+                            </div>
+                        </td>
+                        <td>{{ collecte.JJ_MM_AAAA }}</td>
+                        <td>{{ collecte.Quantite_Collectee }}g</td>
+                        <td>
+                            <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" 
+                               class="btn btn-primary btn-sm">
+                                <i class="bi bi-pencil"></i> Éditer
+                            </a>
+                            <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" 
+                               class="btn btn-danger btn-sm">
+                                <i class="bi bi-trash"></i> Supprimer
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                {% else %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">Pas de collectes disponibles</td>
+                </tr>
+                {% endif %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

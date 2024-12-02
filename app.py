@@ -58,7 +58,7 @@ def show_client():
         TotalAchetee[i['IdCLient']] = i['TotalAchetee'] if i['TotalAchetee'] is not None else 0
     for i in totalDeposee:
         TotalDeposee[i['IdClient']]= i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
-    return render_template('client/show_client.html', clients=clients, rang=rang, TotalAchetee=TotalAchetee, TotalDeposee=TotalDeposee)
+    return render_template('client/show_client.html', clients=clients, rang=rang)
 
 @app.route('/client/add', methods=['GET'])
 def add_client():
