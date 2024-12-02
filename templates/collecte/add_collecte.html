@@ -5,35 +5,38 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Ajouter une collecte</h3>
-    <br><br>
-    <form method="post" action="/collecte/add">
-        <div class="input">
-            <label for="IdTypeVetement">Rang</label>
-            <select id="IdTypeVetement" name="IdTypeVetement">
-                <option value="">Choisissez un type de vêtement</option>
-                {% for typeVetement in typeVetements %}
-                    <option value="{{ typeVetement['IdTypeVetement'] }}">{{ typeVetement.LibelleTypeVetement }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="input">
-            <label for="IdBenne">Rang</label>
-            <select id="IdBenne" name="IdBenne">
-                <option value="">Choisissez une benne</option>
-                {% for benne in bennes %}
-                    <option value="{{ benne['IdBenne'] }}">{{ benne.Adresse }}</option>
-                {% endfor %}
-            </select>
-        </div>
-        <div class="input">
-            <label for="JJ_MM_AAAA">JJ_MM_AAAA</label>
-            <input type="date" id="JJ_MM_AAAA" name="JJ_MM_AAAA">
-        </div>
-        <div class="input">
-            <label for="Quantite_Collectee">Quantite_Collectee</label>
-            <input type="number" id="Quantite_Collectee" name="Quantite_Collectee">
-        </div>
-        <button type="submit">Modifier</button>
-    </form>
+    <div class="container mt-5">
+        <h3 class="mb-4">Ajouter une collecte</h3>
+        <form method="post" action="/collecte/add">
+            <div class="mb-3">
+                <label for="IdTypeVetement" class="form-label">Type de vêtement</label>
+                <select id="IdTypeVetement" name="IdTypeVetement" class="form-select">
+                    <option value="">Choisissez un type de vêtement</option>
+                    {% for typeVetement in typeVetements %}
+                        <option value="{{ typeVetement['IdTypeVetement'] }}">{{ typeVetement.LibelleTypeVetement }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="IdBenne" class="form-label">Benne</label>
+                <select id="IdBenne" name="IdBenne" class="form-select">
+                    <option value="">Choisissez une benne</option>
+                    {% for benne in bennes %}
+                        <option value="{{ benne['IdBenne'] }}">{{ benne.Adresse }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="JJ_MM_AAAA" class="form-label">Date</label>
+                <input type="date" id="JJ_MM_AAAA" name="JJ_MM_AAAA" class="form-control">
+            </div>
+            <div class="mb-3">
+                <label for="Quantite_Collectee" class="form-label">Quantité collectée</label>
+                <input type="number" id="Quantite_Collectee" name="Quantite_Collectee" class="form-control">
+            </div>
+            <div classe="mb-3">
+            <button type="submit" class="btn btn-primary">Ajouter</button>
+            </form>div/
+        </form>
+    </div>
 {% endblock %}
