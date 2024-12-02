@@ -39,17 +39,25 @@ def show_client():
     rangs = my_cursor.fetchall()
     for i in rangs:
         rang[i['IdRang']] = i['LibelleRang']
+    get_db().commit()
+    return render_template('client/show_client.html', clients=clients, rang=rang)
+
+@app.route('/client/etat', methods = ['GET'])
+def etat_client():
+    my_cursor = get_db().cursor()
+    rang = {}
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    clients = my_cursor.fetchall()
     sql = """SELECT Client.IdCLient, SUM(Achete.Quantite_Achetee) AS TotalAchetee
-    FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
-        JOIN Rang ON Client.IdRang = Rang.IdRang
-    GROUP BY Client.IdCLient;"""
+        FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
+        GROUP BY Client.IdCLient;"""
     my_cursor.execute(sql)
     totalAchetee = my_cursor.fetchall()
     TotalDeposee = {}
     sql = """SELECT Client.IdClient, SUM(Depose.Quantite_Deposee) AS TotalDeposee
-    FROM Depose RIGHT JOIN Client ON Depose.IdClient = Client.IdClient
-        JOIN Rang ON Client.IdRang = Rang.IdRang
-    GROUP BY Client.IdClient;"""
+        FROM Depose RIGHT JOIN Client ON Depose.IdClient = Client.IdClient
+        GROUP BY Client.IdClient;"""
     my_cursor.execute(sql)
     totalDeposee = my_cursor.fetchall()
     get_db().commit()
@@ -57,12 +65,9 @@ def show_client():
     for i in totalAchetee:
         TotalAchetee[i['IdCLient']] = i['TotalAchetee'] if i['TotalAchetee'] is not None else 0
     for i in totalDeposee:
-        TotalDeposee[i['IdClient']]= i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
-    return render_template('client/show_client.html', clients=clients, rang=rang)
+        TotalDeposee[i['IdClient']] = i['TotalDeposee'] if i['TotalDeposee'] is not None else 0
+    return render_template('client/etat_client.html', clients=clients, TotalAchetee=TotalAchetee, TotalDeposee=TotalDeposee)
 
-@app.route('/client/filtre', methods=['GET'])
-def filtre_client():
-    pass
 @app.route('/client/add', methods=['GET'])
 def add_client():
     my_cursor = get_db().cursor()
@@ -75,8 +80,22 @@ def add_client():
 @app.route('/client/add', methods=['POST'])
 def valid_add_client():
     my_cursor = get_db().cursor()
-    sql = """INSERT INTO Client (Nom, Prenom, AdresseMail, Telephone, IdRang) VALUES (%s, %s, %s, %s, %s)"""
-    my_cursor.execute(sql, (request.form['Nom'], request.form['Prenom'], request.form['AdresseMail'], request.form['Telephone'], request.form['IdRang']))
+    Nom = request.form['Nom']
+    Prenom = request.form['Prenom']
+    AdresseMail = request.form['AdresseMail']
+    Telephone = request.form['Telephone']
+    IdRang = request.form['IdRang']
+    if (len(Nom) <= 20 and len(Prenom) <= 20 and len(Telephone) == 10 and len(AdresseMail) <= 30):
+        sql = """INSERT INTO Client (Nom, Prenom, AdresseMail, Telephone, IdRang) VALUES (%s, %s, %s, %s, %s)"""
+        my_cursor.execute(sql, (Nom, Prenom, AdresseMail, Telephone, IdRang))
+    elif(len(Nom) > 20):
+        flash("Nom trop long", "alert-warning")
+    elif(len(Prenom) > 20):
+        flash("Prenom trop long", "alert-warning")
+    elif(len(Telephone) != 10):
+        flash("Numero de telephone invalide", "alert-warning")
+    else:
+        flash("Adresse mail trop longue", "alert-warning")
     get_db().commit()
     return redirect("/client/show")
 
@@ -84,8 +103,15 @@ def valid_add_client():
 def delete_client():
     my_cursor = get_db().cursor()
     sql = """DELETE FROM Client WHERE IdClient=%s"""
-    print(request.args['id'])
-    my_cursor.execute(sql, (request.args.get('id')))
+    id = request.args.get('id')
+    my_cursor.execute("""SELECT COUNT(IdClient) FROM Depose WHERE IdClient=%s""", (id))
+    nb_depots = my_cursor.fetchone()['COUNT(IdClient)']
+    my_cursor.execute("""SELECT COUNT(IdClient) FROM Achete WHERE IdClient=%s""", (id))
+    nb_achats = my_cursor.fetchone()['COUNT(IdClient)']
+    if (nb_depots == 0 and nb_achats == 0):
+        my_cursor.execute(sql, (id))
+    else:
+        flash(f"Impossible de supprimer un client ayant des achats ou des depots (" + (f"{nb_achats} achats" if nb_achats>0 else "") + (f" {nb_depots} dépôts" if nb_depots > 0 else "") + " )", "alert-warning")
     get_db().commit()
     return redirect("/client/show")
 
@@ -109,10 +135,20 @@ def valid_edit_client():
     IdRang = request.form['IdRang']
     Telephone = request.form['Telephone']
     IdClient = request.form['IdClient']
-    if (len(Nom) <= 20 and len(Prenom) <= 20 and len(Telephone) == 10 ):
-        sql = """UPDATE Client SET Nom=%s, Prenom=%s, IdRang=%s, Telephone=%s WHERE IdClient=%s"""
-        my_cursor.execute(sql, (Nom, Prenom, IdRang, Telephone, IdClient))
-        get_db().commit()
+    AdresseMail = request.form['AdresseMail']
+    if (len(Nom) <= 20 and len(Prenom) <= 20 and len(Telephone) == 10 and len(AdresseMail) <= 30):
+        sql = """UPDATE Client SET Nom=%s, Prenom=%s, IdRang=%s, Telephone=%s, AdresseMail=%s WHERE IdClient=%s"""
+        my_cursor.execute(sql, (Nom, Prenom, IdRang, Telephone, AdresseMail, IdClient))
+    elif(len(Nom) > 20):
+        flash("Nom trop long", "alert-warning")
+    elif(len(Prenom) > 20):
+        flash("Prenom trop long", "alert-warning")
+    elif(len(Telephone) != 10):
+        flash("Numero de telephone invalide", "alert-warning")
+    else:
+        flash("Adresse mail trop longue", "alert-warning")
+    get_db().commit()
+    get_db().commit()
     return redirect("/client/show")
 
 @app.route('/reduction/show', methods=['GET'])
@@ -180,7 +216,17 @@ def valid_add_reduction():
 def show_filre_reduction():
     my_cursor = get_db().cursor()
     sql = """SELECT * FROM Reduction"""
-    my_cursor.execute(sql)
+    params = []
+    if request.args.get('IdRang'):
+        sql += " WHERE IdRang = %s"
+        params.append(request.args.get('IdRang'))
+    if request.args.get('IdTypeVetement'):
+        if 'WHERE' in sql:
+            sql += " AND IdTypeVetement = %s"
+        else:
+            sql += " WHERE IdTypeVetement = %s"
+        params.append(request.args.get('IdTypeVetement'))
+    my_cursor.execute(sql, params)
     reductions = my_cursor.fetchall()
     sql = """SELECT * FROM TypeVetement"""
     my_cursor.execute(sql)
@@ -261,6 +307,39 @@ def valid_add_collecte():
     my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdBenne'], request.form['JJ_MM_AAAA'], request.form['Quantite_Collectee']))
     get_db().commit()
     return redirect("/collecte/show")
+
+@app.route('/collecte/filtre', methods=['GET', 'POST'])
+def show_filtre_collecte():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Collecte WHERE 1=1"""
+    filters = []
+    if request.args.get('IdTypeVetement'):
+        sql += " AND IdTypeVetement=%s"
+        filters.append(request.args.get('IdTypeVetement'))
+    if request.args.get('IdBenne'):
+        sql += " AND IdBenne=%s"
+        filters.append(request.args.get('IdBenne'))
+    if request.args.get('JJ_MM_AAAA'):
+        sql += " AND JJ_MM_AAAA=%s"
+        filters.append(request.args.get('JJ_MM_AAAA'))
+    if request.args.get('Quantite_Collectee_Min'):
+        sql += " AND Quantite_Collectee >= %s"
+        filters.append(request.args.get('Quantite_Collectee_Min'))
+    if request.args.get('Quantite_Collectee_Max'):
+        sql += " AND Quantite_Collectee <= %s"
+        filters.append(request.args.get('Quantite_Collectee_Max'))
+    my_cursor.execute(sql, filters)
+    collectes = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Benne"""
+    my_cursor.execute(sql)
+    bennes = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('collecte/filtre_collecte.html', collectes=collectes, typeVetements=typeVetements, bennes=bennes)
+
+
 
 @app.route('/achat/show', methods=['GET'])
 def show_achat():

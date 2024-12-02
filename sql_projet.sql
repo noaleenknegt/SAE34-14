@@ -159,6 +159,7 @@ FROM Achete RIGHT JOIN Client ON Achete.IdClient = Client.IdClient
     JOIN Rang ON Client.IdRang = Rang.IdRang
 GROUP BY Client.Nom, Client.Prenom, Rang.LibelleRang
 ORDER BY NomClient, PrenomClient;
+<<<<<<< HEAD
 
 SELECT CONCAT(Client.Nom, ' ', Client.Prenom) AS Client,
     TypeVetement.LibelleTypeVetement AS TypeVetement,
@@ -174,3 +175,5 @@ GROUP BY Client.Nom, Client.Prenom, Rang.LibelleRang, TypeVetement.LibelleTypeVe
 ORDER BY Client, TypeVetement;
 
 
+=======
+>>>>>>> 61572fd1cdd1f367b7e0701b176c9cc96e275fb7
