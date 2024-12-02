@@ -413,7 +413,7 @@ def valid_add_achat():
 @app.route('/achat/search', methods=['GET'])
 def search_achat():
     my_cursor = get_db().cursor()
-    sql = """SELECT * FROM Achete WHERE 1=1"""
+    sql = """SELECT * FROM Achete"""
     filters = []
     if request.args.get('IdClient'):
         sql += " AND IdClient = %s"
