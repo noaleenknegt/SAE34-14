@@ -8,12 +8,12 @@
     <h3>Modifier une achat</h3>
     <br><br>
     <form method="post" action="/achat/edit">
-        <input type="hidden" name="IdClient" value="{{achete.IdClient}}">
-        <input type="hidden" name="IdTypeVetement" value="{{achete.IdTypeVetement}}">
-        <input type="hidden" name="JJ_MM_AAAA" value="{{achete.JJ_MM_AAAA}}">
+        <input type="hidden" name="IdClient" value="{{achat.IdClient}}">
+        <input type="hidden" name="IdTypeVetement" value="{{achat.IdTypeVetement}}">
+        <input type="hidden" name="JJ_MM_AAAA" value="{{achat.JJ_MM_AAAA}}">
         <div class="input">
             <label for="Quantite_Achetee">Quantite_Achetee</label>
-            <input type="number" id="Quantite_Achetee" name="Quantite_Achetee" value="{{achete.Quantite_Achetee}}">
+            <input type="number" id="Quantite_Achetee" name="Quantite_Achetee" value="{{achat.Quantite_Achetee}}">
         </div>
         <button type="submit">Modifier</button>
     </form>

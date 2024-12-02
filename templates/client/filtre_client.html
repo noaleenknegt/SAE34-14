@@ -26,8 +26,8 @@
                    <td>{{ client.Telephone }}</td>
                    <td>{{ rang[client.IdRang]}} (IdRang={{client.IdRang}})</td>
                    <td>
-                          <a class="btn btn-warning" href="/client/edit?id={{ client.IdClient }}">editer</a>&nbsp;
-                          <a class="btn btn-danger" href="/client/delete?id={{ client.IdClient }}" >supprimer</a>
+                          <a href="/client/edit?id={{ client.IdClient }}">editer</a>&nbsp;
+                          <a href="/client/delete?id={{ client.IdClient }}" >supprimer</a>
                    </td>
                </tr>
             {% endfor %}

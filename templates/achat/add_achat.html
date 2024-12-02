@@ -9,20 +9,19 @@
     <br><br>
     <form method="post" action="/achat/add">
         <div class="input">
-            <label for="IdClient">Rang</label>
-            <select id="IdClient" name="IdClient">
-                <option value="">Choisissez le rang du client</option>
-                {% for client in clients %}
-                    <option value="{{ client['IdClient'] }}">{{ client.IdRang }}</option>
-                {% endfor %}
-            </select>
+            <label for="Nom">Nom</label>
+            <input type="text" class="form-control" id="Nom" name="Nom">
+        </div>
+        <div class="input">
+            <label for="Prenom">Prénom</label>
+            <input type="text" class="form-control" id="Prenom" name="Prenom">
         </div>
         <div class="input">
             <label for="IdTypeVetement">Rang</label>
             <select id="IdTypeVetement" name="IdTypeVetement">
                 <option value="">Choisissez un type de vêtement</option>
                 {% for typeVetement in typeVetements %}
-                    <option value="{{ typeVetement['IdTypeVetement'] }}">{{ typeVetement.LibelleTypeVetement }}</option>
+                    <option value="{{ achat['IdTypeVetement'] }}">{{ achat.TypeVetement }}</option>
                 {% endfor %}
             </select>
         </div>
