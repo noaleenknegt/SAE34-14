@@ -240,6 +240,76 @@ def valid_add_collecte():
     my_cursor.execute(sql, (request.form['IdTypeVetement'], request.form['IdBenne'], request.form['JJ_MM_AAAA'], request.form['Quantite_Collectee']))
     get_db().commit()
     return redirect("/collecte/show")
+
+@app.route('/achat/show', methods=['GET'])
+def show_achat():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Achete"""
+    my_cursor.execute(sql)
+    achats = my_cursor.fetchall()
+    achat = my_cursor.fetchone()
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    client = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typevetement = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('achat/show_achat.html', achats=achats, client=client, typevetement=typevetement)
+
+@app.route('/achat/delete', methods=['GET'])
+def delete_achat():
+    my_cursor = get_db().cursor()
+    sql = """DELETE FROM Achete WHERE IdClient=%s AND IdTypeVetement=%s AND JJ_MM_AAAA=%s"""
+    my_cursor.execute(sql, (request.args.get('IdClient'), request.args.get('IdTypeVetment'), request.args.get('JJ_MM_AAAA')))
+    get_db().commit()
+    return redirect("/achat/show")
+
+@app.route('/achat/edit', methods=['GET'])
+def edit_achat():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Achete WHERE IdClient=%s AND IdTypeVetement=%s AND JJ_MM_AAAA=%s"""
+    args = (request.args.get('IdClient'), request.args.get('IdTypeVetement'), request.args.get('JJ_MM_AAAA'))
+    my_cursor.execute(sql, (request.args.get('IdClient'), request.args.get('IdTypeVetement'), request.args.get('JJ_MM_AAAA')))
+    achat = my_cursor.fetchone()
+    print(achat)
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    clients = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typevetements = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('achat/edit_achat.html', achat=achat, clients=clients, typevetements=typevetements, args=args)
+
+@app.route('/achat/edit', methods=['POST'])
+def valid_edit_achat():
+    my_cursor = get_db().cursor()
+    sql = """UPDATE Achete SET Quantite_Achetee=%s WHERE IdClient=%s AND IdTypeVetement=%s AND JJ_MM_AAAA=%s"""
+    my_cursor.execute(sql, (request.form['Quantite_Achetee'], request.form['IdClient'], request.form['IdTypeVetement'], request.form['JJ_MM_AAAA']))
+    get_db().commit()
+    return redirect("/achat/show")
+
+@app.route('/achat/add', methods=['GET'])
+def add_achat():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Client"""
+    my_cursor.execute(sql)
+    clients = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typevetements = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('achat/add_achat.html', clients=clients, typevetements=typevetements)
+
+@app.route('/achat/add', methods=['POST'])
+def valid_add_achat():
+    my_cursor = get_db().cursor()
+    sql = """INSERT INTO Achete (IdClient, IdTypeVetement, JJ_MM_AAAA, Quantite_Achetee) VALUES (%s, %s, %s, %s)"""
+    my_cursor.execute(sql, (request.form['IdClient'], request.form['IdTypeVetement'], request.form['JJ_MM_AAAA'], request.form['Quantite_Achetee']))
+    get_db().commit()
+    return redirect("/achat/show")
+
 @app.route('/', methods=['GET'])
 def show_layout():
     return render_template('layout.html')

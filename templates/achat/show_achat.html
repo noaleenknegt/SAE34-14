@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+    <title>Afficher les achats faits</title>
+{% endblock %}
+
+{% block body %}
+<h3>Achats</h3>
+<br><br>
+
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>IdClient</th><th>IdTypeVetement</th><th>JJ_MM_AAAA</th><th>Quantite_Achetee</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% if achats | length >= 1 %}
+        {% for achat in achats %}
+            <tr>
+                <td>{{ achat.IdClient }}</td>
+                <td>{{ achat.IdTypeVetement }}</td>
+                <td>{{ achat.JJ_MM_AAAA }}</td>
+                <td>{{ achat.Quantite_Achetee }}</td>
+
+                <td>
+                        <a href="/achat/edit?id={{ achat.IdClient }}">editer</a>&nbsp;
+                        <a href="/achat/delete?id={{ achat.IdClient }}">supprimer</a>
+                </td>
+            </tr>
+        {% endfor %}
+    {% else %}
+            <tr>
+                    <td>
+                    pas d'achat
+                    </td>
+            </tr>
+    {% endif %}
+    </tbody>
+</table>
+{% endblock %}

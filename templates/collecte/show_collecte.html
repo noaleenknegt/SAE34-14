@@ -24,8 +24,8 @@
                <td>{{ collecte.JJ_MM_AAAA }}</td>
                <td>{{ collecte.Quantite_Collectee }}g</td>
                <td>
-                      <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}">editer</a>&nbsp;
-                      <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" >supprimer</a>
+                      <a href="/collecte/edit?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" class="btn btn-primary btn-sm">Éditer</a>&nbsp;
+                      <a href="/collecte/delete?IdTypeVetement={{ collecte.IdTypeVetement }}&IdBenne={{ collecte.IdBenne }}&JJ_MM_AAAA={{ collecte.JJ_MM_AAAA }}" class="btn btn-danger btn-sm">Supprimer</a>
                </td>
            </tr>
         {% endfor %}

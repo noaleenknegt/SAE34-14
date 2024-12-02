@@ -2,11 +2,6 @@
 {% block title %}
     <title>Ajouter une réduction</title>
 {% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" >
-    <link rel="stylesheet" href="{{ url_for('static', filename='bootstrap-5.3.3-dist/css/bootstrap.css') }}" >
-{% endblock %}
-
 {% block body %}
     <h3>Ajouter une réduction</h3>
     <br><br>
@@ -14,7 +9,7 @@
         <div class="mb-3">
             <div class="input">
                 <label for="IdRang" class="form-label">Rang</label>
-                <select id="IdRang" class="form-select" name="IdRang">
+                <select id="IdRang" class="form-select" name="IdRang" required>
                     <option value="">Choisissez un rang</option>
                     {% for rang in rangs %}
                         <option value="{{ rang.IdRang }}">{{ rang.LibelleRang }}</option>
@@ -25,7 +20,7 @@
         <div class="mb-3">
             <div class="input">
                 <label for="IdTypeVetement" class="form-label">Type de vêtement</label>
-                <select id="IdTypeVetement" class="form-select" name="IdTypeVetement">
+                <select id="IdTypeVetement" class="form-select" name="IdTypeVetement" required>
                     <option value="">Choisissez un type de vêtement</option>
                     {% for typeVetement in typeVetements %}
                         <option value="{{ typeVetement.IdTypeVetement }}">{{ typeVetement.LibelleTypeVetement }}</option>
@@ -36,13 +31,9 @@
         <div class="mb-3">
             <div class="input">
                 <label for="PourcentageReduction" class="form-label">Pourcentage de réduction</label>
-                <input type="number" id="PourcentageReduction" class="form-control" name="PourcentageReduction" placeholder="Choisir un pourcentage de réduction">
+                <input type="number" id="PourcentageReduction" class="form-control" name="PourcentageReduction" placeholder="Choisir un pourcentage de réduction" required>
             </div>
         </div>
         <button type="submit" class="btn btn-success">Ajouter</button>
     </form>
-    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script>
-{% endblock %}
-{% block scripts %}
-    <script src="{{ url_for('static', filename='bootstrap-5.3.3-dist/js/bootstrap.js') }}"></script> <!-- js bootstrap -->
 {% endblock %}
