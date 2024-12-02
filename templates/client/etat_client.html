@@ -12,7 +12,7 @@
     <table class="table table-striped table-responsive">
         <thead>
             <tr>
-                <th>IdClient</th><th>Nom</th><th>Prénom</th><th>AdresseMail</th><th>Téléphone</th><th>Rang</th><th>Actions</th>
+                <th>IdClient</th><th>Nom</th><th>Prénom</th><th>TotalAchetee</th><th>TotalDeposee</th>
             </tr>
         </thead>
         <tbody>
@@ -22,13 +22,8 @@
                    <td>{{ client.IdClient }}</td>
                    <td>{{ client.Nom }}</td>
                    <td>{{ client.Prenom }}</td>
-                   <td>{{ client.AdresseMail }}</td>
-                   <td>{{ client.Telephone }}</td>
-                   <td>{{ rang[client.IdRang]}} (IdRang={{client.IdRang}})</td>
-                   <td>
-                          <a href="/client/edit?id={{ client.IdClient }}">editer</a>&nbsp;
-                          <a href="/client/delete?id={{ client.IdClient }}" >supprimer</a>
-                   </td>
+                   <td>{{ TotalAchetee[client.IdClient] }}</td>
+                   <td>{{ TotalDeposee[client.IdClient] }}</td>
                </tr>
             {% endfor %}
         {% else %}

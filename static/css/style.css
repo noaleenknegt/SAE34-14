@@ -7,3 +7,6 @@
   .dropdown-menu {
     margin-top: 0;
   }
+.alert-warning {
+    background-color: rgba(255, 197, 197, 1);
+}
