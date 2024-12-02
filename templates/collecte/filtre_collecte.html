@@ -1,0 +1,62 @@
+{% extends 'layout.html' %}
+
+{% block title %}
+<title>Filtre collecte</title>
+{% endblock %}
+
+{% block body %}
+<div class="container mt-5">
+    <h3 class="text-center">Filtre collecte</h3>
+    <form method="get" action="/collecte/filtre" class="row g-3">
+        <div class="col-md-4">
+            <label for="IdTypeVetement" class="form-label">Type de vêtement</label>
+            <select id="IdTypeVetement" class="form-select" name="IdTypeVetement">
+                <option value="">Tous les types de vêtements</option>
+                {% for typeVetement in typeVetements %}
+                <option value="{{ typeVetement.IdTypeVetement }}">{{ typeVetement.LibelleTypeVetement }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="IdBenne" class="form-label">Benne</label>
+            <select id="IdBenne" class="form-select" name="IdBenne">
+                <option value="">Toutes les bennes</option>
+                {% for benne in bennes %}
+                <option value="{{ benne.IdBenne }}">{{ benne.Adresse }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="JJ_MM_AAAA" class="form-label">Date</label>
+            <input type="date" id="JJ_MM_AAAA" class="form-control" name="JJ_MM_AAAA">
+        </div>
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary w-100">Filtrer</button>
+        </div>
+    </form>
+    <h4 class="mt-5">Filtre des collectes :</h4>
+    <table class="table table-hover">
+        <thead class="table-light">
+        <tr>
+            <th>Type de vêtement</th><th>Benne</th><th>Date</th><th>Quantité collectée</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if collectes | length >= 1 %}
+        {% for collecte in collectes %}
+        <tr>
+            <td>{{ typeVetements[collecte.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
+            <td>{{ bennes[collecte.IdBenne-1]['Adresse'] }}</td>
+            <td>{{ collecte.JJ_MM_AAAA }}</td>
+            <td>{{ collecte.Quantite_Collectee }}g</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="4" class="text-center">Pas de collectes</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

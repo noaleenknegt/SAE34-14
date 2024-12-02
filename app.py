@@ -272,6 +272,33 @@ def valid_add_collecte():
     get_db().commit()
     return redirect("/collecte/show")
 
+@app.route('/collecte/filtre', methods=['GET', 'POST'])
+def show_filtre_collecte():
+    my_cursor = get_db().cursor()
+    sql = """SELECT * FROM Collecte WHERE 1=1"""
+    filters = []
+    if request.args.get('IdTypeVetement'):
+        sql += " AND IdTypeVetement=%s"
+        filters.append(request.args.get('IdTypeVetement'))
+    if request.args.get('IdBenne'):
+        sql += " AND IdBenne=%s"
+        filters.append(request.args.get('IdBenne'))
+    if request.args.get('JJ_MM_AAAA'):
+        sql += " AND JJ_MM_AAAA=%s"
+        filters.append(request.args.get('JJ_MM_AAAA'))
+    my_cursor.execute(sql, filters)
+    collectes = my_cursor.fetchall()
+    sql = """SELECT * FROM TypeVetement"""
+    my_cursor.execute(sql)
+    typeVetements = my_cursor.fetchall()
+    sql = """SELECT * FROM Benne"""
+    my_cursor.execute(sql)
+    bennes = my_cursor.fetchall()
+    get_db().commit()
+    return render_template('collecte/filtre_collecte.html', collectes=collectes, typeVetements=typeVetements, bennes=bennes)
+
+
+
 @app.route('/achat/show', methods=['GET'])
 def show_achat():
     my_cursor = get_db().cursor()
