@@ -7,7 +7,8 @@
 
 {% block body %}
 <div class="container">
-    <h3>Réductions</h3>
+    <br><br>
+    <h1><strong>Réductions</strong></h1>
     <br><br>
     <div style="display: flex; gap: 12px;">
         <button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
@@ -38,8 +39,8 @@
                    <td>{{ typeVetements[reduction.IdTypeVetement-1]['LibelleTypeVetement'] }}</td>
                    <td>- {{ reduction.PourcentageReduction }}%</td>
                    <td>
-                          <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">edit</span></a>&nbsp;
-                          <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;"><span class="material-symbols-outlined">delete</span></a>
+                          <a href="/reduction/edit?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none; color:grey;" title="éditer"><span class="material-symbols-outlined">edit</span></a>&nbsp;
+                          <a href="/reduction/delete?IdRang={{ reduction.IdRang }}&IdTypeVetement={{reduction.IdTypeVetement}}" style="text-decoration: none;color:red"; title="supprimer"><span class="material-symbols-outlined">delete</span></a>
                    </td>
                </tr>
             {% endfor %}
