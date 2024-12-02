@@ -8,11 +8,19 @@
 {% block body %}
 <h3>Réductions</h3>
 <br><br>
-<button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
-    Ajouter réduction <span class="material-symbols-outlined" style="margin-left: 5px;">add</span>
-</button>
+<div style="display: flex; gap: 12px;">
+    <button onclick="location.href='/reduction/add'" class="btn btn-success" style="display: flex; align-items: center;">
+        Ajouter réduction <span class="material-symbols-outlined" style="margin-left: 5px;">add</span>
+    </button>
+    <button onclick="location.href='/reduction/filtre'" class="btn btn-primary" style="display: flex; align-items: center;">
+        Filtrer réduction <span class="material-symbols-outlined" style="margin-left: 5px;">search</span>
+    </button>
+</div>
 <!-- <a> Filter <span class="material-symbols-outlined">search</span></a> -->
 <br>
+
+
+
 
 <h4><strong>Liste des réductions disponibles : </strong></h4>
 <table class="table">
