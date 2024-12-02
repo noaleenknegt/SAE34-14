@@ -180,7 +180,17 @@ def valid_add_reduction():
 def show_filre_reduction():
     my_cursor = get_db().cursor()
     sql = """SELECT * FROM Reduction"""
-    my_cursor.execute(sql)
+    params = []
+    if request.args.get('IdRang'):
+        sql += " WHERE IdRang = %s"
+        params.append(request.args.get('IdRang'))
+    if request.args.get('IdTypeVetement'):
+        if 'WHERE' in sql:
+            sql += " AND IdTypeVetement = %s"
+        else:
+            sql += " WHERE IdTypeVetement = %s"
+        params.append(request.args.get('IdTypeVetement'))
+    my_cursor.execute(sql, params)
     reductions = my_cursor.fetchall()
     sql = """SELECT * FROM TypeVetement"""
     my_cursor.execute(sql)
