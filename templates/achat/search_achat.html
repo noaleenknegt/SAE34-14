@@ -10,7 +10,7 @@
         <option value="{{ client.IdClient }}">{{ client.Nom }} {{ client.Prenom }}</option>
         {% endfor %}
     </select>
-
+    <br>
     <label for="IdTypeVetement">Type de Vêtement :</label>
     <select id="IdTypeVetement" name="IdTypeVetement">
                 <option value="">Choisissez un type de vêtement</option>
@@ -18,16 +18,16 @@
                     <option value="{{ achat['IdTypeVetement'] }}">{{ achat.TypeVetement }}</option>
                 {% endfor %}
             </select>
-
+    <br>
     <label for="JJ_MM_AAAA">Date :</label>
     <input type="date" name="JJ_MM_AAAA" id="JJ_MM_AAAA">
-
+    <br>
     <label for="Quantite_Achetee_Min">Quantité Min :</label>
     <input type="number" name="Quantite_Achetee_Min" id="Quantite_Achetee_Min">
-
+    <br>
     <label for="Quantite_Achetee_Max">Quantité Max :</label>
     <input type="number" name="Quantite_Achetee_Max" id="Quantite_Achetee_Max">
-
+    <br>
     <button type="submit">Rechercher</button>
 </form>
 
