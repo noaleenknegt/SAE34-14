@@ -1,22 +1,57 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Frip'Kil</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Frip'Kil</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" href="/client/show">Clients (Noa)</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/achat/show">Achats (Johan)</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/reduction/show">Réductions (Lïam)</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/collecte/show">Collectes (Benjamin)</a>
-            </li>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto">
+          <!-- Menu Clients -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="clientsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Clients (Noa)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="clientsDropdown">
+              <li><a class="dropdown-item" href="/client/show">Afficher les clients</a></li>
+              <li><a class="dropdown-item" href="/client/add">Ajouter un client</a></li>
+              <li><a class="dropdown-item" href="/client/statistics">Statistiques des clients</a></li>
+            </ul>
+          </li>
+          <!-- Menu Achats -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="achatsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Achats (Johan)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="achatsDropdown">
+              <li><a class="dropdown-item" href="/achat/show">Afficher les achats</a></li>
+              <li><a class="dropdown-item" href="/achat/add">Ajouter un achat</a></li>
+              <li><a class="dropdown-item" href="/achat/statistics">Statistiques des achats</a></li>
+            </ul>
+          </li>
+          <!-- Menu Réductions -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="reductionsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Réductions (Lïam)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="reductionsDropdown">
+              <li><a class="dropdown-item" href="/reduction/show">Afficher les réductions</a></li>
+              <li><a class="dropdown-item" href="/reduction/add">Ajouter une réduction</a></li>
+              <li><a class="dropdown-item" href="/reduction/statistics">Statistiques des réductions</a></li>
+            </ul>
+          </li>
+          <!-- Menu Collectes -->
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="collectesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Collectes (Benjamin)
+            </a>
+            <ul class="dropdown-menu" aria-labelledby="collectesDropdown">
+              <li><a class="dropdown-item" href="/collecte/show">Afficher les collectes</a></li>
+              <li><a class="dropdown-item" href="/collecte/add">Ajouter une collecte</a></li>
+              <li><a class="dropdown-item" href="/collecte/statistics">Statistiques des collectes</a></li>
+            </ul>
+          </li>
         </ul>
+      </div>
     </div>
-</nav>
+  </nav>
+  

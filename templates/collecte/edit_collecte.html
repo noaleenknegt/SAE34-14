@@ -5,16 +5,20 @@
 {% endblock %}
 
 {% block body %}
-    <h3>Modifier une collecte</h3>
-    <br><br>
-    <form method="post" action="/collecte/edit">
-        <input type="hidden" name="IdTypeVetement" value="{{collecte.IdTypeVetement}}">
-        <input type="hidden" name="IdBenne" value="{{collecte.IdBenne}}">
-        <input type="hidden" name="JJ_MM_AAAA" value="{{collecte.JJ_MM_AAAA}}">
-        <div class="input">
-            <label for="Quantite_Collectee">Quantite_Collectee</label>
-            <input type="number" id="Quantite_Collectee" name="Quantite_Collectee" value="{{collecte.Quantite_Collectee}}">
-        </div>
-        <button type="submit">Modifier</button>
-    </form>
+    <div class="container">
+        <h3 class="mb-4">Modifier une collecte</h3>
+        <form method="post" action="/collecte/edit" class="form-collecte">
+            <input type="hidden" name="IdTypeVetement" value="{{collecte.IdTypeVetement}}">
+            <input type="hidden" name="IdBenne" value="{{collecte.IdBenne}}">
+            <input type="hidden" name="JJ_MM_AAAA" value="{{collecte.JJ_MM_AAAA}}">
+            <div class="form-group mb-3">
+                <label for="Quantite_Collectee">Quantité Collectée</label>
+                <input type="number" id="Quantite_Collectee" name="Quantite_Collectee" value="{{collecte.Quantite_Collectee}}" class="form-control">
+            </div>
+            <br>
+            <div class="mb-3">
+                <button type="submit" class="btn btn-primary">Modifier</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}
